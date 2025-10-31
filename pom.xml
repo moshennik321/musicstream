@@ -24,6 +24,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 1877494 (Upload local project)
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -40,6 +45,10 @@
             <scope>provided</scope>
         </dependency>
 
+<<<<<<< HEAD
+=======
+>>>>>>> 0dc2707 (music streaming service)
+>>>>>>> 1877494 (Upload local project)
     </dependencies>
 
     <build>
@@ -50,6 +59,16 @@
             </plugin>
         </plugins>
     </build>
+<<<<<<< HEAD
 </project>
 
 
+=======
+<<<<<<< HEAD
+</project>
+=======
+</project>
+
+
+>>>>>>> 0dc2707 (music streaming service)
+>>>>>>> 1877494 (Upload local project)
