@@ -1,31 +1,25 @@
 package com.example.musicstreaming.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
-
+@Table(name = "artist")
 public class Artist {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String genre;
-    private String name;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Track> tracks = new ArrayList<>();
+    private String name;
+    private String genre; // ← ДОЛЖНО БЫТЬ ЭТО ПОЛЕ
+
+    // геттеры и сеттеры
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getGenre() { return genre; }
+    public void setGenre(String genre) { this.genre = genre; }
 }

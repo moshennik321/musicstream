@@ -3,7 +3,8 @@ package com.example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.example.musicstreaming")
+
 public class Application {
 
     public static void main(String[] args) {
