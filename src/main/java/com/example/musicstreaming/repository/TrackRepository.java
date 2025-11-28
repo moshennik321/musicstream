@@ -13,6 +13,10 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
     @Query("SELECT t FROM Track t WHERE t.artist.id = :artistId")
     List<Track> findByArtistId(@Param("artistId") Long artistId);
 
+    // Выполнить поиск треков по названию
+    @Query("SELECT t FROM Track t WHERE LOWER(t.title) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<Track> searchByTitle(@Param("query") String query);
+
     // Найти треки по жанру артиста
     @Query("SELECT t FROM Track t WHERE t.artist.genre = :genre")
     List<Track> findByArtistGenre(@Param("genre") String genre);

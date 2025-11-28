@@ -24,7 +24,11 @@ public class AlbumController {
     public List<Album> getAll() {
         return repo.findAll();
     }
-
+    // Новые альбомы (последние добавленные)
+    @GetMapping("/new")
+    public List<Album> getNewAlbums(@RequestParam(defaultValue = "5") int limit) {
+        return repo.findNewAlbums(org.springframework.data.domain.PageRequest.of(0, limit));
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Album> getById(@PathVariable Long id) {
         return repo.findById(id)
