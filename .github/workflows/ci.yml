@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      # Database (должны быть заданы как Secrets в GitHub)
+      DB_URL: ${{ secrets.DB_URL }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      # JWT
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
+      JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
+
+      # Spring
+      SPRING_PROFILES_ACTIVE: default
+
+      # SSL
+      SERVER_SSL_KEYSTORE_PASSWORD: ${{ secrets.SERVER_SSL_KEYSTORE_PASSWORD }}
+      SERVER_SSL_KEY_ALIAS: musicserver
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Restore keystore from base64
+        run: |
+          mkdir -p src/main/resources
+          echo "$KEYSTORE_B64" | base64 -d > src/main/resources/musicserver.jks
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+
+      - name: Build and test with Maven
+        run: mvn -B clean verify
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: musicstream-jar
+          path: target/*.jar

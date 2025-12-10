@@ -11,6 +11,13 @@ target/
 *.iws
 *.iml
 *.ipr
+*.env
+*.jks
+*.p12
+.env
+*.crt
+*.csr
+*.key
 
 ### Eclipse ###
 .apt_generated

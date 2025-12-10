@@ -34,6 +34,26 @@ public class AuthService {
     public Map<String, String> register(String username, String password, String email, String role) {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new RuntimeException("User with username '" + username + "' already exists");
+
+        }
+        if (password == null || password.length() < 8) {
+            throw new RuntimeException("Password must be at least 8 characters long");
+        }
+        String specialChars = "!@#$%^&*()_+-={}[]|:;\"'<>,.?/";
+        boolean hasSpecial = password.chars()
+                .anyMatch(ch -> specialChars.indexOf(ch) >= 0);
+
+        if (!hasSpecial) {
+            throw new RuntimeException("Password must contain at least one special character");
+        }
+        // Хотя бы одна заглавная буква
+        boolean hasUppercase = password.chars()
+                .anyMatch(Character::isUpperCase);
+        if (!hasUppercase) {
+            throw new RuntimeException("Password must contain at least one uppercase letter");
+        }
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("User with username '" + username + "' already exists");
         }
 
         String userRole = role != null ? role.replace("ROLE_", "") : "USER";

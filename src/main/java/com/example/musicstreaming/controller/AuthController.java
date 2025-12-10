@@ -35,6 +35,7 @@ public class AuthController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of("error", "Internal Server Error: " + e.getMessage()));
         }
+
     }
 
     // Логин с получением пары токенов
